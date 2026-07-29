@@ -14,3 +14,17 @@ The PII scrubber in `safety/pii_scrubber.py` uses a regex pattern to detect and 
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [ ] Issue added to cohort ledger
+
+## Week 8 — Reproduction & solution planning
+
+**Reproduction commit link:** https://github.com/satyapandla/pathreview/commit/8f5228e
+
+**Reproduction summary:**
+Ran `scrub()` and `detect()` against `(555) 123-4567` and confirmed the parenthesized format passes through unredacted while the dashed format in the same string gets caught. Ran the full test suite and confirmed 5 related tests fail as described in the issue: `test_us_phone_number_redaction`, `test_us_phone_formats`, `test_detect_phone_pii`, `test_phone_at_start_of_text`, plus `test_mixed_pii_and_text` (which fails for a related but separate reason).
+
+**PLAN.md link:** https://github.com/satyapandla/pathreview/blob/fix/146-pii-scrubber-parenthesized-phone/PLAN.md
+
+**Walkthrough video (recommended):**
+
+**Blockers or open questions:**
+Need to confirm whether the `street_address` over-matching bug surfaced in `test_mixed_pii_and_text` is in scope for #146 or should be filed separately — it's an unrelated regex issue that happened to trip a test in the same file.
