@@ -52,6 +52,15 @@ class TestPIIScrubber:
             text = f"Contact: {phone}"
             scrubbed = scrubber.scrub(text)
             assert "[REDACTED]" in scrubbed
+    def test_issue_146_parenthesized_phone_in_context(self, scrubber):
+    	"""Regression test for issue #146: parenthesized phone format
+	inside a sentence with a second, dashed-format number."""
+    	text = "Call me at (555) 123-4567 or 555-123-4567"
+    	scrubbed = scrubber.scrub(text)
+    	assert scrubbed.count("[REDACTED]") == 2
+
+    detected = scrubber.detect("Call me at (555) 123-4567")
+    assert len(detected) > 0
 
     def test_international_phone_redaction(self, scrubber):
         """Test international phone number is redacted."""
