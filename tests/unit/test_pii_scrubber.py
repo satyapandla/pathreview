@@ -61,8 +61,6 @@ class TestPIIScrubber:
         detected = scrubber.detect("Call me at (555) 123-4567")
         assert len(detected) > 0
 
-    detected = scrubber.detect("Call me at (555) 123-4567")
-    assert len(detected) > 0
 
     def test_international_phone_redaction(self, scrubber):
         """Test international phone number is redacted."""
